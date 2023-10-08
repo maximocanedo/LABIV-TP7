@@ -44,7 +44,7 @@ window.onload = () => {
 	let header = new Header({
 		title: "Trabajo Práctico N.º 7",
 		group: "Resolución de Máximo Canedo",
-		links: [["Inicio", "/Inicio.jsp"]],
+		links: [["Inicio", "/Inicio.jsp"], ["Agregar seguro", "/AgregarSeguro.jsp"], ["Listar seguros", "/ListarSeguros.jsp"]],
 		otherLinks: [
 			["Repositorio", "https://github.com/maximocanedo/LABIV-TP7"],
 			["Foro", "https://example.org"],
