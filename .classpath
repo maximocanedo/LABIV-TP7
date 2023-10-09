@@ -13,6 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="Connector_v4.jar"/>
+	<classpathentry kind="lib" path="Utils.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
