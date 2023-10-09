@@ -1,6 +1,11 @@
 package entity;
 
 public class Insurance {
+	@Override
+	public String toString() {
+		return "Insurance [id=" + id + ", description=" + description + ", category=" + category + ", hiringCost="
+				+ hiringCost + ", insuredCost=" + insuredCost + "]";
+	}
 	private int id; // Primary Key, not null, autoincrements
 	private String description; // varchar(200)
 	private InsuranceCategory category; // id int
