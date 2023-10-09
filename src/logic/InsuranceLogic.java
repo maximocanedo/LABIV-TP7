@@ -2,6 +2,8 @@ package logic;
 
 import max.*;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,6 @@ public class InsuranceLogic implements IRecordLogic<Insurance, Integer> {
 		static String BadInsuredCost = "El costo asegurado debe ser mayor o igual a 0. ";
 		static String AddedSuccessfully = "El registro se agregó correctamente. ";
 		static String ErrorTryingToAddRecord = "Hubo un error al intentar agregar el registro. ";
-		
 		
 	}
 	
@@ -174,13 +175,27 @@ public class InsuranceLogic implements IRecordLogic<Insurance, Integer> {
 
 	@Override
 	public Insurance convert(Dictionary d) {
-		Insurance n = new Insurance();
-		if(d.get("idSeguro") != null) n.setId((int)d.get("idSeguro"));
-		if(d.get("descripcion") != null) n.setDescription((String)d.get("descripcion"));
-		if(d.get("costoContratacion") != null) n.setHiringCost((double)d.get("costoContratacion"));
-		if(d.get("costoAsegurado") != null) n.setInsuredCost((double)d.get("costoAsegurado"));
-		return n;
+	    Insurance n = new Insurance();
+	    if (d.$("idSeguro") != null) {
+	        Integer idSeguro = d.$("idSeguro");
+	        BigInteger bigIntegerIdSeguro = BigInteger.valueOf(idSeguro); // Convierte Integer a BigInteger
+	        n.setId(bigIntegerIdSeguro.intValue()); // Luego, convierte BigInteger a int
+	    }
+	    if (d.$("descripcion") != null) {
+	        n.setDescription(d.$("descripcion")); // String (No hacer nada)
+	    }
+	    if (d.$("costoContratacion") != null) {
+	        BigDecimal costoContratacion = d.$("costoContratacion");
+	        n.setHiringCost(costoContratacion.doubleValue()); // Convierte BigDecimal a double
+	    }
+	    if (d.$("costoAsegurado") != null) {
+	        BigDecimal costoAsegurado = d.$("costoAsegurado");
+	        n.setInsuredCost(costoAsegurado.doubleValue()); // Convierte BigDecimal a double
+	    }
+	    return n;
 	}
+
+
 
 	@Override
 	public List<Insurance> convert(List<Dictionary> ld) {
