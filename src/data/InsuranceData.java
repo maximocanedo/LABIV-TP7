@@ -5,30 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.*;
+import logic.InsuranceLogic;
 import max.*;
 
 public class InsuranceData implements IRecord<Insurance, Integer> {
-
-	@Override
-	public Insurance convert(Dictionary d) {
-		Insurance n = new Insurance();
-		if(d.get("idSeguro") != null) n.setId((int)d.get("idSeguro"));
-		if(d.get("descripcion") != null) n.setDescription((String)d.get("descripcion"));
-		if(d.get("costoContratacion") != null) n.setHiringCost((double)d.get("costoContratacion"));
-		if(d.get("costoAsegurado") != null) n.setInsuredCost((double)d.get("costoAsegurado"));
-		return n;
-	}
-
-	@Override
-	public List<Insurance> convert(List<Dictionary> ld) {
-		List<Insurance> l = new ArrayList<Insurance>();
-		for(Dictionary d : ld) {
-			Insurance i = convert(d);
-			l.add(i);
-		}
-		return l;
-	}
-
 	@Override
 	public TransactionResponse<?> delete(Insurance n) throws SQLException {
 		TransactionResponse<?> t = TransactionResponse.create();
@@ -119,11 +99,6 @@ public class InsuranceData implements IRecord<Insurance, Integer> {
 		return t;
 	}
 
-	@Override
-	public TransactionResponse<?> modify(Insurance arg0, Integer arg1) throws SQLException {
-		// Método OBSOLETO que olvidé de eliminar de la librería. Recomendable usar el de un sólo parámetro.
-		return null;
-	}
 
 	@Override
 	public TransactionResponse<Insurance> select(String query) throws SQLException {
@@ -131,7 +106,7 @@ public class InsuranceData implements IRecord<Insurance, Integer> {
 		List<Insurance> list = new ArrayList<Insurance>();
 		try {
 			TransactionResponse<Dictionary> results = new Connector().fetch(query);
-			r.rowsReturned = convert(results.rowsReturned);
+			r.rowsReturned = new InsuranceLogic().convert(results.rowsReturned);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -146,7 +121,7 @@ public class InsuranceData implements IRecord<Insurance, Integer> {
 		List<Insurance> list = new ArrayList<Insurance>();
 		try {
 			TransactionResponse<Dictionary> results = new Connector().fetch(query, params);
-			r.rowsReturned = convert(results.rowsReturned);
+			r.rowsReturned = new InsuranceLogic().convert(results.rowsReturned);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -161,7 +136,7 @@ public class InsuranceData implements IRecord<Insurance, Integer> {
 		List<Insurance> list = new ArrayList<Insurance>();
 		try {
 			TransactionResponse<Dictionary> results = new Connector().fetch(query, params);
-			r.rowsReturned = convert(results.rowsReturned);
+			r.rowsReturned = new InsuranceLogic().convert(results.rowsReturned);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			throw e;
