@@ -3,8 +3,8 @@ package entity;
 public class Insurance {
 	@Override
 	public String toString() {
-		return "Insurance [id=" + id + ", description=" + description + ", category=" + category + ", hiringCost="
-				+ hiringCost + ", insuredCost=" + insuredCost + "]";
+		return "Insurance { ID: " + id + ", Description: " + description + ", Category: " + category + ", Hiring Cost : $"
+				+ hiringCost + ", Insured Cost: $" + insuredCost + " }";
 	}
 	private int id; // Primary Key, not null, autoincrements
 	private String description; // varchar(200)

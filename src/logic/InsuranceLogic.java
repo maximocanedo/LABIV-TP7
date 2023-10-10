@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.InsuranceCategoryData;
 import data.InsuranceData;
 import entity.*;
 
@@ -27,51 +28,41 @@ public class InsuranceLogic implements IRecordLogic<Insurance, Integer> {
 		static String BadInsuredCost = "El costo asegurado debe ser mayor o igual a 0. ";
 		static String AddedSuccessfully = "El registro se agregó correctamente. ";
 		static String ErrorTryingToAddRecord = "Hubo un error al intentar agregar el registro. ";
+		static String CategoryNotFound = "El ID de categoría debe corresponder a una categoría existente. ";
 		
 	}
 	
 	@Override
 	public LogicResponse<Insurance> delete(Insurance data) throws SQLException {
-		LogicResponse<Insurance> lr = new LogicResponse<Insurance>();
+		LogicResponse<Insurance> finalResponse = new LogicResponse<Insurance>();
 		try {
-			TransactionResponse<?> trDelete = DATA.delete(data);
-			if(trDelete.rowsAffected > 0) {
-				lr.status = true;
-				lr.message = Text.DeletedSuccessfully;
-			} else {
-				lr.status = false;
-				lr.message = Text.ErrorTryingToDeleteRecord;
-			}
+			TransactionResponse<?> transactionResult = DATA.delete(data);
+			boolean deleted = transactionResult.rowsAffected > 0;
+			finalResponse.die(deleted, deleted ? Text.DeletedSuccessfully : Text.ErrorTryingToDeleteRecord);
 		} catch(SQLException e) {
-			lr.exception = e;
+			finalResponse.err(e);
 			throw e;
 		}		
-		return lr;
+		return finalResponse;
 	}
 	
 	@Override
 	public LogicResponse<Insurance> modify(Insurance data) throws SQLException {
-		LogicResponse<Insurance> lr = new LogicResponse<Insurance>();
-		LogicResponse<Insurance> v = validate(data, false);
-		if(v.status) {
+		LogicResponse<Insurance> finalResponse = new LogicResponse<Insurance>();
+		LogicResponse<Insurance> validationResponse = validate(data, false);
+		if(validationResponse.status) {
 			try {
-				TransactionResponse<?> trInsert = DATA.modify(data);
-				if(trInsert.rowsAffected > 0) {
-					lr.status = true;
-					lr.message = Text.ModifiedSuccessfully;
-				} else {
-					lr.status = false;
-					lr.message = Text.ErrorTryingToModifyRecord;
-				}
+				TransactionResponse<?> transactionResult = DATA.modify(data);
+				boolean modified = transactionResult.rowsAffected > 0;
+				finalResponse.die(modified, modified ? Text.ModifiedSuccessfully : Text.ErrorTryingToModifyRecord);
 			} catch(SQLException e) {
-				lr.exception = e;
+				finalResponse.err(e);
 				throw e;
 			}	
 		} else {
-			lr.status = false;
-			lr.message = v.message;
+			finalResponse.die(false, validationResponse.message);
 		}
-		return lr;
+		return finalResponse;
 	}
 
 	@Override
@@ -82,129 +73,123 @@ public class InsuranceLogic implements IRecordLogic<Insurance, Integer> {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		boolean f = exists;
-		return new LogicResponse<Insurance>() {{
-			status = f;
-		}};
+		boolean finalResult = exists;
+		return new LogicResponse<Insurance>(finalResult, "");
 	}
 
 	@Override
 	public LogicResponse<Insurance> getAll() {
-		LogicResponse<Insurance> data = new LogicResponse<Insurance>();
+		LogicResponse<Insurance> finalResult = new LogicResponse<Insurance>();
 		try {
-			TransactionResponse<Insurance> res = DATA.getAll();
-			data.listReturned = res.rowsReturned;
+			TransactionResponse<Insurance> dataFetched = DATA.getAll();
+			finalResult.fill(dataFetched.rowsReturned);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return data;
+		return finalResult;
 	}
 
 	@Override
-	public LogicResponse<Insurance> getById(Integer arg0) {
-		LogicResponse<Insurance> data = new LogicResponse<Insurance>();
+	public LogicResponse<Insurance> getById(Integer id) {
+		LogicResponse<Insurance> finalResult = new LogicResponse<Insurance>();
 		try {
-			TransactionResponse<Insurance> res = DATA.getById(arg0);
-			data.objectReturned = res.objectReturned;
+			TransactionResponse<Insurance> dataFetched = DATA.getById(id);
+			finalResult.fill(dataFetched.objectReturned);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return data;
+		return finalResult;
 	}
 
 	@Override
 	public LogicResponse<Insurance> insert(Insurance data) throws SQLException {
-		LogicResponse<Insurance> lr = new LogicResponse<Insurance>();
-		LogicResponse<Insurance> v = validate(data, true);
-		if(v.status) {
+		LogicResponse<Insurance> finalResult = new LogicResponse<Insurance>();
+		LogicResponse<Insurance> validationResult = validate(data, true);
+		if(validationResult.status) {
 			try {
-				TransactionResponse<?> trInsert = DATA.insert(data);
-				if(trInsert.rowsAffected > 0) {
-					lr.status = true;
-					lr.message = Text.AddedSuccessfully;
-					
-				} else {
-					lr.status = false;
-					lr.message = Text.ErrorTryingToAddRecord;
-				}
+				TransactionResponse<?> transactionResult = DATA.insert(data);
+				boolean added = transactionResult.rowsAffected > 0;
+				finalResult.die(added, added ? Text.AddedSuccessfully : Text.ErrorTryingToAddRecord);
 			} catch(SQLException e) {
-				lr.exception = e;
+				finalResult.err(e);
 				throw e;
 			}	
 		} else {
-			lr.status = false;
-			lr.message = v.message;
+			finalResult.die(false, validationResult.message);
 		}
 			
-		return lr;
+		return finalResult;
 	}
 
-	// TODO: Validar todos los campos e implementar en otros métodos.
 	@Override
 	public LogicResponse<Insurance> validate(Insurance i, boolean validatePK) {
-		
-		boolean idOK = !validatePK;
-		if(validatePK) {
-			try {
-				idOK = !DATA.exists(i.getId());
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		boolean descriptionOK = (i.getDescription()) instanceof String 
+		boolean descriptionPasses = (i.getDescription()) instanceof String 
 				&& (i.getDescription()).length() >= 0 
 				&& (i.getDescription()).length() <= 200;
-		boolean catOK = (i.getCategory()) instanceof InsuranceCategory
+		boolean categoryObjectPasses = (i.getCategory()) instanceof InsuranceCategory
 				&& (i.getCategory()).getId() >= 0;
-		boolean hcOK = (i.getHiringCost()) >= 0;
-		boolean icOK = (i.getInsuredCost()) >= 0;
-		boolean finalBool = (idOK && descriptionOK && catOK && hcOK && icOK);
+		boolean categoryExists = false;
+		try {
+			categoryExists = new InsuranceCategoryData().exists(i.getCategory().getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		boolean hiringCostPasses = (i.getHiringCost()) >= 0;
+		boolean insuredCostPasses = (i.getInsuredCost()) >= 0;
+		boolean finalResult = (descriptionPasses && categoryObjectPasses && categoryExists && hiringCostPasses && insuredCostPasses);
 		String finalMessage = 
-				(!idOK ? Text.DuplicateID : 
-					(!descriptionOK ? Text.BadDescription :
-						!catOK ? Text.BadCategory :
-							!hcOK ? Text.BadHiringCost :
-								!icOK ? Text.BadInsuredCost : ""));
-		return new LogicResponse<Insurance>() {{
-			status = finalBool;
-			message = finalMessage;
-		}};
+				(!descriptionPasses ? Text.BadDescription :
+						!categoryObjectPasses ? Text.BadCategory :
+							!categoryExists ? Text.CategoryNotFound :
+								!hiringCostPasses ? Text.BadHiringCost :
+									!insuredCostPasses ? Text.BadInsuredCost : "");
+		return new LogicResponse<Insurance>(finalResult, finalMessage);
 		
 	}
 
+	
 	@Override
-	public Insurance convert(Dictionary d) {
-	    Insurance n = new Insurance();
-	    if (d.$("idSeguro") != null) {
-	        Integer idSeguro = d.$("idSeguro");
-	        BigInteger bigIntegerIdSeguro = BigInteger.valueOf(idSeguro); // Convierte Integer a BigInteger
-	        n.setId(bigIntegerIdSeguro.intValue()); // Luego, convierte BigInteger a int
+	public Insurance convert(Dictionary row) {
+	    Insurance insurance = new Insurance();
+	    InsuranceCategory category = new InsuranceCategory();
+	    if (row.$("idSeguro") != null) {
+	        Integer idSeguro = row.$("idSeguro");
+	        BigInteger bigIntegerIdSeguro = BigInteger.valueOf(idSeguro);
+	        insurance.setId(bigIntegerIdSeguro.intValue()); 
 	    }
-	    if (d.$("descripcion") != null) {
-	        n.setDescription(d.$("descripcion")); // String (No hacer nada)
+	    if (row.$("descripcion") != null) {
+	        insurance.setDescription(row.$("descripcion"));
 	    }
-	    if (d.$("costoContratacion") != null) {
-	        BigDecimal costoContratacion = d.$("costoContratacion");
-	        n.setHiringCost(costoContratacion.doubleValue()); // Convierte BigDecimal a double
+	    if (row.$("costoContratacion") != null) {
+	        BigDecimal costoContratacion = row.$("costoContratacion");
+	        insurance.setHiringCost(costoContratacion.doubleValue());
 	    }
-	    if (d.$("costoAsegurado") != null) {
-	        BigDecimal costoAsegurado = d.$("costoAsegurado");
-	        n.setInsuredCost(costoAsegurado.doubleValue()); // Convierte BigDecimal a double
+	    if (row.$("costoAsegurado") != null) {
+	        BigDecimal costoAsegurado = row.$("costoAsegurado");
+	        insurance.setInsuredCost(costoAsegurado.doubleValue());
 	    }
-	    return n;
+	    if(row.$("cat_des") != null) {
+	    	String catDes = row.$("cat_des");
+	    	category.setDescription(catDes);
+	    }
+	    if(row.$("idTipo") != null) {
+	    	int idTipo = row.$("idTipo");
+	    	category.setId(idTipo);
+	    }
+	    insurance.setCategory(category);
+	    return insurance;
 	}
 
 
 
 	@Override
-	public List<Insurance> convert(List<Dictionary> ld) {
-		List<Insurance> l = new ArrayList<Insurance>();
-		for(Dictionary d : ld) {
-			Insurance i = convert(d);
-			l.add(i);
+	public List<Insurance> convert(List<Dictionary> rows) {
+		List<Insurance> insuranceArray = new ArrayList<Insurance>();
+		for(Dictionary row : rows) {
+			Insurance insurance = convert(row);
+			insuranceArray.add(insurance);
 		}
-		return l;
+		return insuranceArray;
 	}
 
 }

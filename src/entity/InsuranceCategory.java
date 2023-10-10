@@ -1,6 +1,10 @@
 package entity;
 
 public class InsuranceCategory {
+	@Override
+	public String toString() {
+		return "InsuranceCategory { ID: " + id + ", Description: " + description + " }";
+	}
 	private int id;
 	private String description; // varchar(50)
 	public InsuranceCategory() {
