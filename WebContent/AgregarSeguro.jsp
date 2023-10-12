@@ -24,20 +24,7 @@
     
     <br />
     <br />
-    <ul>
-    <li>Example </li>
-      <%
-      	LogicResponse<Insurance> ins = IL.getAll();
-      	if(ins.listReturned != null) {
-      		for(Insurance i : ins.listReturned) {
-      			%>
-      			<li><%=i.toString() %></li>
-      			<%
-      		}
-      	}
-      %>
-    </ul>
-    <br />
+   
 		<form action="AgregarSeguro.jsp" method="POST">
 			<input type="number" name="txtId" readonly value="<%=ICD.getNextId() %>" />
 			<select name="category">
@@ -51,7 +38,7 @@
 					}
 				%>
 			</select>
-            <input type="text" name="txtDescription" placeholder="DescripciÃ³n" /> <br />
+            <input type="text" name="txtDescription" placeholder="Descripción" /> <br />
             <button type="submit">Agregar</button>
         </form>
         <br />
