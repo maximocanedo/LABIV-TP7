@@ -8,8 +8,8 @@ class Header {
 			links: settings.links ?? [["Link 1", "./Link1"]],
 			otherLinks: settings.otherLinks ?? [
 				["Repositorio", "https://github.com/maximocanedo"],
-				["Foro", ""],
-			],
+				["Foro", ""]
+			]
 		};
 		this.header = document.createElement("div");
 		this.header.classList.add("header");
