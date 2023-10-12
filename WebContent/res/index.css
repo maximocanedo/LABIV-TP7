@@ -1,0 +1,35 @@
+
+.inline-container {
+    width: 300px;
+    .mdc-select {
+        width: 100%;
+    }
+    .mdc-text-field {
+        width: 100%;
+    }
+}
+.mdc-list-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.drawer-frame-root {
+    display: flex;
+    flex-direction: row;
+}
+
+.def-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-h {
+    display: flex;
+    flex-direction: row;
+
+}
+.f-h.btns {
+    justify-content: space-between;
+}
