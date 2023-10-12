@@ -88,6 +88,17 @@ public class InsuranceLogic implements IRecordLogic<Insurance, Integer> {
 		}
 		return finalResult;
 	}
+	
+	public LogicResponse<Insurance> filterByCategory(Integer cat) {
+		LogicResponse<Insurance> finalResult = new LogicResponse<Insurance>();
+		try {
+			TransactionResponse<Insurance> dataFetched = DATA.filterByCategory(cat);
+			finalResult.fill(dataFetched.rowsReturned);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return finalResult;
+	}
 
 	@Override
 	public LogicResponse<Insurance> getById(Integer id) {

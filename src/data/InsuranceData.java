@@ -99,6 +99,13 @@ public class InsuranceData implements IRecord<Insurance, Integer> {
 		return select("SELECT seguros.*, tiposeguros.descripcion 'cat_des' FROM seguros "
 						+ "INNER JOIN tiposeguros ON seguros.idTipo = tiposeguros.idTipo ");
 	}
+	
+	public TransactionResponse<Insurance> filterByCategory(Integer categoryId) throws SQLException {
+		return select("SELECT seguros.*, tiposeguros.descripcion 'cat_des' FROM seguros "
+						+ "INNER JOIN tiposeguros ON seguros.idTipo = tiposeguros.idTipo "
+						+ "WHERE seguros.idTipo = @id ",
+						Dictionary.fromArray("id", categoryId));
+	}
 
 	/**
 	 * Obtiene un registro Insurance por su ID desde la base de datos.

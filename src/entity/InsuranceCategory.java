@@ -5,6 +5,9 @@ public class InsuranceCategory {
 	public String toString() {
 		return "InsuranceCategory { ID: " + id + ", Description: " + description + " }";
 	}
+	public String toJSON() {
+		return "{ \"id\": "+ id + ", \"description\": \"" + description + "\" }";
+	}
 	private int id;
 	private String description; // varchar(50)
 	public InsuranceCategory() {

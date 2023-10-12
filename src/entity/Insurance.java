@@ -6,6 +6,10 @@ public class Insurance {
 		return "Insurance { ID: " + id + ", Description: " + description + ", Category: " + category + ", Hiring Cost : $"
 				+ hiringCost + ", Insured Cost: $" + insuredCost + " }";
 	}
+	public String toJSON() {
+		return "{ \"id\": " + id + ", \"description\": \"" + description + "\", \"category\": " + category.toJSON() + 
+				", \"hiringCost\": " + hiringCost + ", \"insuredCost\": " + insuredCost + " }";
+	}
 	private int id; // Primary Key, not null, autoincrements
 	private String description; // varchar(200)
 	private InsuranceCategory category; // id int
