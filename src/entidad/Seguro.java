@@ -1,11 +1,11 @@
-package dominio;
+package entidad;
 
 public class Seguro {
 
 	
 	private int idSeguro;
 	private String descripcion;
-	private int idTipoSeguro;
+	private TipoSeguro idTipoSeguro;
 	private int costoContratacion;
 	private int costoAsegurado;
 	
@@ -13,7 +13,7 @@ public class Seguro {
 		
 	}
 	
-	public Seguro(int id,String desc ,int idTipo, int costoC, int costoA) {
+	public Seguro(int id,String desc ,TipoSeguro idTipo, int costoC, int costoA) {
 		this.idSeguro = id;
 		this.descripcion = desc;
 		this.idTipoSeguro = idTipo;
@@ -37,11 +37,11 @@ public class Seguro {
 		this.descripcion = descripcion;
 	}
 
-	public int getIdTipoSeguro() {
+	public TipoSeguro getIdTipoSeguro() {
 		return idTipoSeguro;
 	}
 
-	public void setIdTipoSeguro(int idTipoSeguro) {
+	public void setIdTipoSeguro(TipoSeguro idTipoSeguro) {
 		this.idTipoSeguro = idTipoSeguro;
 	}
 
