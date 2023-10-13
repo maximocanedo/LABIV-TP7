@@ -44,10 +44,10 @@ window.onload = () => {
 	let header = new Header({
 		title: "Trabajo Práctico N.º 7",
 		group: "Resolución de Máximo Canedo",
-		links: [["Inicio", "/Inicio.jsp"], ["Agregar seguro", "/AgregarSeguro.jsp"], ["Listar seguros", "/ListarSeguros.jsp"]],
+		links: [["Inicio", "/TP7_GRUPO_3/Inicio.jsp"], ["Agregar seguro", "/TP7_GRUPO_3/AgregarSeguro.jsp"], ["Listar seguros", "/TP7_GRUPO_3/ListarSeguros.jsp"]],
 		otherLinks: [
 			["Repositorio", "https://github.com/maximocanedo/LABIV-TP7"],
-			["Foro", "https://example.org"],
+			["Foro", "https://frgp.cvg.utn.edu.ar/mod/forum/discuss.php?d=170367"],
 		],
 	});
 	header.putOnPage();

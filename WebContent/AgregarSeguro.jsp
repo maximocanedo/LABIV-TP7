@@ -26,13 +26,13 @@
     <main class="def-main add-s">
         <br><br><br>
         <span class="mdc-typography--headline4">Agregar un seguro</span>
-        <form action="#e">
+        <form action="#e" name="addForm">
             <br><br>
             <div class="inline-container">
                 <label class="mdc-text-field mdc-text-field--filled">
                     <span class="mdc-text-field__ripple"></span>
                     <span class="mdc-floating-label" id="my-label-id">ID</span>
-                    <input class="mdc-text-field__input" name="id" type="number" value="<%=ICD.getNextId() %>" readonly
+                    <input class="mdc-text-field__input" name="id" type="number" value="<%=ID.getNextId() %>" readonly
                         aria-labelledby="my-label-id">
                     <span class="mdc-line-ripple"></span>
                 </label>
@@ -96,17 +96,37 @@
 
                 </div>
             </div>
+            <br>
+            <div class="inline-container">
+                <label class="mdc-text-field mdc-text-field--filled">
+                    <span class="mdc-text-field__ripple"></span>
+                    <span class="mdc-floating-label" id="my-label-id">Costo de contratación</span>
+                    <input class="mdc-text-field__input" required name="hiringCost" step="0.01" min="0" type="number"
+                        aria-labelledby="my-label-id">
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+            <br />
+            <div class="inline-container">
+                <label class="mdc-text-field mdc-text-field--filled">
+                    <span class="mdc-text-field__ripple"></span>
+                    <span class="mdc-floating-label" id="my-label-id">Costo asegurado</span>
+                    <input class="mdc-text-field__input" required name="insuredCost" step="0.01" min="0" type="number"
+                        aria-labelledby="my-label-id">
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
 <br>
             <div class="f-h btns">
                 <div class="mdc-touch-target-wrapper">
-                    <button type="button" onclick="window.showSnackbar('Hola hola')" class="mdc-button mdc-button--touch ">
+                    <button type="clear" class="mdc-button mdc-button--touch ">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__touch"></span>
                         <span class="mdc-button__label">Limpiar</span>
                     </button>
                 </div>
                 <div class="mdc-touch-target-wrapper">
-                    <button type="submit" class="mdc-button mdc-button--touch  mdc-button--raised">
+                    <button type="submit" id="btnAgregar" class="mdc-button mdc-button--touch  mdc-button--raised">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__touch"></span>
                         <span class="mdc-button__label">Enviar</span>

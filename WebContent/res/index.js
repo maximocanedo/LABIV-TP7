@@ -9,6 +9,31 @@ const formatearDinero = (cantidad) => {
 
 	return formato.format(cantidad);
 };
+const agregarEvent = async () => {
+	let d = {
+		description: document.addForm.description.value,
+		category: document.addForm.category.value,
+		hiringCost: document.addForm.hiringCost.value,
+		insuredCost: document.addForm.insuredCost.value,
+	};
+	console.log({d});
+	let data = await fetch(
+		`./AgregarServlet?description=${encodeURIComponent(
+			d.description
+		)}&category=${encodeURIComponent(
+			d.category
+		)}&hiringCost=${encodeURIComponent(
+			d.hiringCost
+		)}&insuredCost=${encodeURIComponent(d.insuredCost)}`,
+		{
+			method: "POST",
+		}
+	)
+		.then((raw) => raw.json())
+		.then((json) => {
+			showSnackbar(json.message);
+		});
+};
 (() => {
 	let datatable;
 	const createTr = () => {
@@ -116,6 +141,13 @@ const formatearDinero = (cantidad) => {
 		var md = new mdc.select.MDCSelect(element);
 		md.required = false;
 	});
+	
+	if(document.querySelector("#btnAgregar") != null) {
+		document.querySelector("#btnAgregar").addEventListener("click", e => {
+			e.preventDefault();
+			if(document.addForm.checkValidity()) agregarEvent();
+		});
+	}
 
 	document.querySelectorAll(".mdc-snackbar").forEach((element) => {
 		var md = new mdc.snackbar.MDCSnackbar(element);
@@ -146,6 +178,6 @@ const formatearDinero = (cantidad) => {
 			md.open();
 		};
 	});
-	(() => loadTable())();
+	if(document.querySelector(".mdc-data-table") != null) loadTable();
 	// Evitar envío de formulario
 })();
