@@ -1,15 +1,46 @@
 package entidad;
 
+import max.*;
+
 public class Seguro {
 
 	
 	private int idSeguro;
 	private String descripcion;
-	private TipoSeguro idTipoSeguro;
+	private TipoSeguro idTipoSeguro; // TODO Cambiar. Es un objeto TipoSeguro, NO un Id.
 	private int costoContratacion;
 	private int costoAsegurado;
 	
-	public Seguro(){
+	// Schema
+	private static Schema _schema = Schema.fromArray(
+			"id", new SchemaProperty() {{
+				required = false; // No es requerido porque es automático y no hay que validarlo.
+				type = Integer.class;
+				min = 0;
+			}},
+			"descripcion", new SchemaProperty() {{
+				required = true;
+				type = String.class;
+				minlength = 0;
+				maxlength = 200;
+			}},
+			"idTipoSeguro", new SchemaProperty() {{
+				required = true;
+				type = Integer.class;
+			}},
+			"costoContratacion", new SchemaProperty() {{
+				required = true;
+				type = Double.class;
+				min = 0;
+			}},
+			"costoAsegurado", new SchemaProperty() {{
+				required = true,
+				type = Double.class;
+				min = 0;
+			}}
+		);
+	
+	public Seguro() {
 		
 	}
 	
