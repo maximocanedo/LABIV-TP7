@@ -2,7 +2,7 @@ package entidad;
 
 public class Contratacion {
 	private Integer idContratacion;
-	private String nombreUsuario;
+	private Usuario nombreUsuario;
 	private Seguro idSeguro;
 	private double costoContratacion;
 	public Integer getIdContratacion() {
@@ -11,10 +11,10 @@ public class Contratacion {
 	public void setIdContratacion(Integer idContratacion) {
 		this.idContratacion = idContratacion;
 	}
-	public String getNombreUsuario() {
+	public Usuario getNombreUsuario() {
 		return nombreUsuario;
 	}
-	public void setNombreUsuario(String nombreUsuario) {
+	public void setNombreUsuario(Usuario nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
 	public Seguro getIdSeguro() {
@@ -29,7 +29,7 @@ public class Contratacion {
 	public void setCostoContratacion(double costoContratacion) {
 		this.costoContratacion = costoContratacion;
 	}
-	public Contratacion(Integer idContratacion, String nombreUsuario, Seguro idSeguro, double costoContratacion) {
+	public Contratacion(Integer idContratacion, Usuario nombreUsuario, Seguro idSeguro, double costoContratacion) {
 		this.idContratacion = idContratacion;
 		this.nombreUsuario = nombreUsuario;
 		this.idSeguro = idSeguro;
