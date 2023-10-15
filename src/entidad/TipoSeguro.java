@@ -3,20 +3,17 @@ package entidad;
 public class TipoSeguro {
 	private Integer idTipo;
 	private String descripcion;
-	
-	private static Integer cont=0;
-	
-	public static Integer proxId() {
-		return cont++;
-	}
+
 	@Override
 	public String toString() {
 		return descripcion;
 	}
-	public TipoSeguro(String descripcion) {
-		cont++;
-		this.idTipo = cont;
+	public TipoSeguro(Integer id, String descripcion) {
+		this.idTipo = id;
 		this.descripcion = descripcion;
+	}
+	public TipoSeguro() {
+		// TODO Auto-generated constructor stub
 	}
 	public Integer getIdTipo() {
 		return idTipo;
@@ -32,4 +29,5 @@ public class TipoSeguro {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
 }

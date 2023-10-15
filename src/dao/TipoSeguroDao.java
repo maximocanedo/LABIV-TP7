@@ -9,5 +9,5 @@ public interface TipoSeguroDao {
 	public boolean delete(TipoSeguro tipoSeguro);
 	public boolean modify(TipoSeguro tipoSeguro);
 	public List<TipoSeguro> readAll();
-	public boolean existePersona(TipoSeguro tipoSeguro);
+	public boolean existe(TipoSeguro tipoSeguro);
 }

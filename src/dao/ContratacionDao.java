@@ -9,5 +9,5 @@ public interface ContratacionDao {
 	public boolean delete(Contratacion contratacion);
 	public boolean modify(Contratacion contratacion);
 	public List<Contratacion> readAll();
-	public boolean existePersona(Contratacion contratacion);
+	public boolean existe(Contratacion contratacion);
 }

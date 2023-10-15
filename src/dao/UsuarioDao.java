@@ -9,5 +9,5 @@ public interface UsuarioDao {
 	public boolean delete(Usuario usuario);
 	public boolean modify(Usuario usuario);
 	public List<Usuario> readAll();
-	public boolean existePersona(Usuario usuario);
+	public boolean existe(Usuario usuario);
 }

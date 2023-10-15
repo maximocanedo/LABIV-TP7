@@ -13,8 +13,8 @@ public class Seguro {
 		return "Seguro [idSeguro=" + idSeguro + ", descripcion=" + descripcion + ", idTipo=" + idTipo.toString()
 				+ ", costoContratacion=" + costoContratacion + ", costoAsegurado=" + costoAsegurado + "]";
 	}
-	public Seguro(Integer idSeguro, String descripcion, TipoSeguro idTipo, float costoContratacion,
-			float costoAsegurado) {
+	public Seguro(Integer idSeguro, String descripcion, TipoSeguro idTipo, double costoContratacion,
+			double costoAsegurado) {
 		this.idSeguro = idSeguro;
 		this.descripcion = descripcion;
 		this.idTipo = idTipo;
