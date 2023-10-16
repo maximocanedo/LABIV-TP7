@@ -34,7 +34,7 @@ public class Seguro {
 				min = 0;
 			}},
 			"costoAsegurado", new SchemaProperty() {{
-				required = true,
+				required = true;
 				type = Double.class;
 				min = 0;
 			}}
