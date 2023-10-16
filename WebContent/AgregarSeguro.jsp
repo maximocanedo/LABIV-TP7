@@ -42,9 +42,9 @@
 <h1>Agregar seguros</h1>
 
 <%
-	int idActual = 0;
+	
   	SeguroDao segDao = new SeguroDao();
-  	
+	int idActual = segDao.ultimoID()+1;
   	TipoSeguroDao TsDao = new TipoSeguroDao();
   	TipoSeguroNegocio tsNeg = new TipoSeguroNegocio();
 %>

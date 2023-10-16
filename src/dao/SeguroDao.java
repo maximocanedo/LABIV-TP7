@@ -3,6 +3,7 @@ package dao;
 import java.sql.SQLException;
 
 import entidad.Seguro;
+import max.Connector;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
@@ -17,9 +18,24 @@ public class SeguroDao  implements IRecord<Seguro, Integer>{
 		// 
 		return select("SELECT seguros.*, tiposeguros.descripcion 'Tipo_Descripcion' FROM seguros "
 				+ "INNER JOIN tiposeguros ON seguros.idTipo = tiposeguros.idTipo ");
+	}	
+
+	public int ultimoID() {
+		String query = "{CALL UltimoID}"; 
+		int id= 0; 
+	    Connector con = new Connector(db);
+	    try {
+	        TransactionResponse<Dictionary> result = con.fetch(query);
+	        if (result.rowsReturned != null && result.rowsReturned.size() > 0) {
+	            Dictionary idDevuelto = result.rowsReturned.get(0);
+	            id = idDevuelto.$("idSeguro"); 
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return id;
 	}
-	
-	
+	 
 	@Override
 	public TransactionResponse<?> delete(Seguro arg0) throws SQLException {
 		return null;
