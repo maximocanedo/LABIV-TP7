@@ -40,7 +40,7 @@ public class TipoSeguroNegocio implements IRecordLogic<TipoSeguro, Integer>{
 	    if (row.$("idTipo") != null) {
 	        Integer idSeguro = row.$("idTipo");
 	        BigInteger bigIntegerIdSeguro = BigInteger.valueOf(idSeguro);
-	        seguro.setIdTipo(bigIntegerIdSeguro.intValue()); 
+	        seguro.setId(bigIntegerIdSeguro.intValue()); 
 	    }
 	    if (row.$("descripcion") != null) {
 	        seguro.setDescripcion(row.$("descripcion"));

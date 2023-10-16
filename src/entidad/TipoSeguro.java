@@ -2,7 +2,7 @@ package entidad;
 
 public class TipoSeguro {
 
-	private int idTipo;
+	private int id;
 	private String descripcion;
 	
 	
@@ -10,14 +10,14 @@ public class TipoSeguro {
 		
 	}
 	public TipoSeguro(int id, String desc) {
-		this.idTipo = id;
+		this.id = id;
 		this.descripcion = desc;
 	}
-	public int getIdTipo() {
-		return idTipo;
+	public int getId() {
+		return id;
 	}
-	public void setIdTipo(int idTipo) {
-		this.idTipo = idTipo;
+	public void setId(int idTipo) {
+		this.id = idTipo;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -27,7 +27,7 @@ public class TipoSeguro {
 	}
 	@Override
 	public String toString() {
-		return "TipoSeguro [idTipo=" + idTipo + ", descripcion=" + descripcion + "]";
+		return "TipoSeguro [idTipo=" + id + ", descripcion=" + descripcion + "]";
 	}
 	
 	

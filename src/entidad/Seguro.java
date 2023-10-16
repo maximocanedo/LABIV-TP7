@@ -5,14 +5,14 @@ import max.*;
 public class Seguro {
 
 	
-	private int idSeguro;
+	private int id;
 	private String descripcion;
 	private TipoSeguro tipo;
-	private int costoContratacion;
-	private int costoAsegurado;
+	private double costoContratacion;
+	private double costoAsegurado;
 	
 	// Schema
-	private static Schema _schema = Schema.fromArray(
+	public static Schema _schema = Schema.fromArray(
 			"id", new SchemaProperty() {{
 				required = false; // No es requerido porque es automático y no hay que validarlo.
 				type = Integer.class;
@@ -27,6 +27,7 @@ public class Seguro {
 			"idTipoSeguro", new SchemaProperty() {{
 				required = true;
 				type = Integer.class;
+				ref = new ReferenceInfo("tiposeguros", "idTipo", "segurosgroup");
 			}},
 			"costoContratacion", new SchemaProperty() {{
 				required = true;
@@ -44,20 +45,20 @@ public class Seguro {
 		
 	}
 	
-	public Seguro(int id,String desc ,TipoSeguro idTipo, int costoC, int costoA) {
-		this.idSeguro = id;
+	public Seguro(int id,String desc ,TipoSeguro idTipo, double costoC, double costoA) {
+		this.id = id;
 		this.descripcion = desc;
-		this.idTipoSeguro = idTipo;
+		this.tipo = idTipo;
 		this.costoContratacion = costoC;
 		this.costoAsegurado = costoA;
 	}
 
-	public int getIdSeguro() {
-		return idSeguro;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdSeguro(int idSeguro) {
-		this.idSeguro = idSeguro;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {
@@ -68,33 +69,33 @@ public class Seguro {
 		this.descripcion = descripcion;
 	}
 
-	public TipoSeguro getIdTipoSeguro() {
-		return idTipoSeguro;
+	public TipoSeguro getTipo() {
+		return tipo;
 	}
 
-	public void setIdTipoSeguro(TipoSeguro idTipoSeguro) {
-		this.idTipoSeguro = idTipoSeguro;
+	public void setTipo(TipoSeguro tipo) {
+		this.tipo = tipo;
 	}
 
-	public int getCostoContratacion() {
+	public double getCostoContratacion() {
 		return costoContratacion;
 	}
 
-	public void setCostoContratacion(int costoContratacion) {
+	public void setCostoContratacion(double costoContratacion) {
 		this.costoContratacion = costoContratacion;
 	}
 
-	public int getCostoAsegurado() {
+	public double getCostoAsegurado() {
 		return costoAsegurado;
 	}
 
-	public void setCostoAsegurado(int costoAsegurado) {
+	public void setCostoAsegurado(double costoAsegurado) {
 		this.costoAsegurado = costoAsegurado;
 	}
 
 	@Override
 	public String toString() {
-		return "Seguro [idSeguro=" + idSeguro + ", descripcion=" + descripcion + ", idTipoSeguro=" + idTipoSeguro
+		return "Seguro [idSeguro=" + id + ", descripcion=" + descripcion + ", idTipoSeguro=" + tipo.toString()
 				+ ", costoContratacion=" + costoContratacion + ", costoAsegurado=" + costoAsegurado + "]";
 	}
 	
