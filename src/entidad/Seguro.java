@@ -7,7 +7,7 @@ public class Seguro {
 	
 	private int idSeguro;
 	private String descripcion;
-	private TipoSeguro idTipoSeguro; // TODO Cambiar. Es un objeto TipoSeguro, NO un Id.
+	private TipoSeguro tipo;
 	private int costoContratacion;
 	private int costoAsegurado;
 	
