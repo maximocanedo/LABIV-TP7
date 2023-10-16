@@ -15,6 +15,7 @@ public class SeguroNegocio implements IRecordLogic<Seguro, Integer> {
 	@Override
 	public Seguro convert(Dictionary d) {
 		Seguro obj = new Seguro();
+		TipoSeguro t = new TipoSeguro();
 		if(d.$("idSeguro") != null) {
 			int id = d.$("idSeguro");
 			obj.setId(id);
@@ -24,9 +25,10 @@ public class SeguroNegocio implements IRecordLogic<Seguro, Integer> {
 			obj.setDescripcion(description);
 		}
 		if(d.$("idTipo") != null) {
-			TipoSeguro t = new TipoSeguro();
 			t.setId(d.$("idTipo"));
-			obj.setTipo(t);
+		}
+		if(d.$("Tipo_Descripcion") != null) {
+			t.setDescripcion(d.$("Tipo_Descripcion"));
 		}
 		if(d.$("costoContratacion") != null) {
 			Double cc = d.$("costoContratacion");
@@ -36,6 +38,7 @@ public class SeguroNegocio implements IRecordLogic<Seguro, Integer> {
 			Double ca = d.$("costoAsegurado");
 			obj.setCostoAsegurado(ca);
 		}
+		obj.setTipo(t);
 		return obj;
 	}
 
