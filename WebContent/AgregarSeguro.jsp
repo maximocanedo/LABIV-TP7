@@ -65,7 +65,7 @@
 						LogicResponse<TipoSeguro> lista = tsNeg.getAll();
 						if(lista.listReturned !=null){
 							for(TipoSeguro tipo : lista.listReturned){
-								out.println("<option value="+tipo.getIdTipo()+">"+tipo.getDescripcion()+"</option>");		
+								out.println("<option value="+tipo.getId()+">"+tipo.getDescripcion()+"</option>");		
 							}
 						}
 						%>
