@@ -42,9 +42,9 @@
 <h1>Agregar seguros</h1>
 
 <%
-	int idActual = 0;
+	
   	SeguroDao segDao = new SeguroDao();
-  	
+	int idActual = segDao.ultimoID()+1;
   	TipoSeguroDao TsDao = new TipoSeguroDao();
   	TipoSeguroNegocio tsNeg = new TipoSeguroNegocio();
 %>
@@ -65,7 +65,7 @@
 						LogicResponse<TipoSeguro> lista = tsNeg.getAll();
 						if(lista.listReturned !=null){
 							for(TipoSeguro tipo : lista.listReturned){
-								out.println("<option value="+tipo.getIdTipo()+">"+tipo.getDescripcion()+"</option>");		
+								out.println("<option value="+tipo.getId()+">"+tipo.getDescripcion()+"</option>");		
 							}
 						}
 						%>
