@@ -1,5 +1,10 @@
 package entity;
 
+import max.ReferenceInfo;
+import max.Schema;
+import max.SchemaProperty;
+
+@SuppressWarnings("serial")
 public class Insurance {
 	@Override
 	public String toString() {
@@ -15,6 +20,38 @@ public class Insurance {
 	private InsuranceCategory category; // id int
 	private double hiringCost; // decimal
 	private double insuredCost; // decimal
+	
+	public static Schema _schema = new Schema("seguros", "segurosgroup") {{ 
+		setProperties(
+			new SchemaProperty("id") {{
+				required = false;
+				type = Integer.class;
+			}},
+			new SchemaProperty("descripcion") {{
+				required = true;
+				type = String.class;
+				maxlength = 200;
+			}},
+			new SchemaProperty("idTipo") {{
+				required = true;
+				type = Integer.class;
+				ref = InsuranceCategory._schema.ref("idTipo");
+			}},
+			new SchemaProperty("costoContratacion") {{
+				required = true;
+				type = Double.class;
+				min = 0;
+			}},
+			new SchemaProperty("costoAsegurado") {{
+				required = true;
+				type = Double.class;
+				min = 0;
+			}}
+		);
+	}};
+	
+	
+	
 	public Insurance() {}
 	public int getId() {
 		return id;
