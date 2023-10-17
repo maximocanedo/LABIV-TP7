@@ -4,14 +4,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.SeguroDao;
 import entidad.*;
 import max.Dictionary;
 import max.IRecordLogic;
 import max.LogicResponse;
 import max.SchemaValidationResult;
+import max.TransactionResponse;
 
 public class SeguroNegocio implements IRecordLogic<Seguro, Integer> {
-
+	
+	public SeguroDao DAO = new SeguroDao();
+	
 	@Override
 	public Seguro convert(Dictionary d) {
 		Seguro obj = new Seguro();
@@ -51,21 +55,18 @@ public class SeguroNegocio implements IRecordLogic<Seguro, Integer> {
 		return l;		
 	}
 
-	public Dictionary toDictionary(Seguro obj) {
-		Dictionary d = Dictionary.fromArray(
-			"idSeguro", obj.getId(),
-			"descripcion", obj.getDescripcion(),
-			"idTipo", obj.getTipo().getId(),
-			"costoContratacion", obj.getCostoContratacion(),
-			"costoAsegurado", obj.getCostoAsegurado()
-		);
-		return d;
-	}
 	
+	public static class T {
+		static String deletedSuccessfully = "El registro se eliminó correctamente. ";
+		static String couldNotDelete = "Hubo un problema al intentar eliminar el registro. ";
+	}
 	@Override
 	public LogicResponse<Seguro> delete(Seguro arg0) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		TransactionResponse<?> opr = DAO.delete(arg0);
+		LogicResponse<Seguro> res = new LogicResponse<Seguro>();
+		boolean ok = opr.rowsAffected > 0;
+		res.die(ok, ok ? T.deletedSuccessfully : T.couldNotDelete);
+		return res;
 	}
 
 	@Override
@@ -101,7 +102,7 @@ public class SeguroNegocio implements IRecordLogic<Seguro, Integer> {
 	@Override
 	public LogicResponse<Seguro> validate(Seguro s, boolean e) {
 		LogicResponse<Seguro> r = new LogicResponse<Seguro>();
-		Dictionary data = toDictionary(s);
+		Dictionary data = s.toDictionary();
 		SchemaValidationResult v = Seguro._schema.validate(data);
 		r.die(v.status, v.message);
 		return r;

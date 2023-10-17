@@ -24,7 +24,7 @@ public class Seguro {
 				minlength = 0;
 				maxlength = 200;
 			}},
-			"idTipoSeguro", new SchemaProperty() {{
+			"idTipo", new SchemaProperty() {{
 				required = true;
 				type = Integer.class;
 				ref = new ReferenceInfo("tiposeguros", "idTipo", "segurosgroup");
@@ -95,8 +95,26 @@ public class Seguro {
 
 	@Override
 	public String toString() {
-		return "Seguro [idSeguro=" + id + ", descripcion=" + descripcion + ", idTipoSeguro=" + tipo.toString()
+		return "Seguro [idSeguro=" + id + ", descripcion=" + descripcion + ", idTipo=" + tipo.toString()
 				+ ", costoContratacion=" + costoContratacion + ", costoAsegurado=" + costoAsegurado + "]";
+	}
+	public String toJSON() {
+		return "{ "
+				+ "\"idSeguro\": " + id + ","
+				+ "\"descripcion\": \"" + descripcion + "\""
+				+ "\"tipo\": " + tipo.toJSON() + ","
+				+ "\"costoContratacion\": " + costoContratacion + ", "
+				+ "\"costoAsegurado\": " + costoAsegurado + " "
+				+ "}";
+	}
+	public Dictionary toDictionary() {
+		return Dictionary.fromArray(
+				"idSeguro", id,
+				"descripcion", descripcion,
+				"idTipo", tipo.getId(),
+				"costoContratacion", costoContratacion,
+				"costoAsegurado", costoAsegurado
+			);
 	}
 	
 	

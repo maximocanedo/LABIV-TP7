@@ -17,7 +17,6 @@ public class SeguroDao  implements IRecord<Seguro, Integer>{
 	
 	@Override
 	public TransactionResponse<Seguro> getAll() throws SQLException {
-		// 
 		return select("SELECT seguros.*, tiposeguros.descripcion 'Tipo_Descripcion' FROM seguros "
 				+ "INNER JOIN tiposeguros ON seguros.idTipo = tiposeguros.idTipo ");
 	}	
