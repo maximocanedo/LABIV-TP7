@@ -134,27 +134,8 @@ public class InsuranceLogic implements IRecordLogic<Insurance, Integer> {
 
 	@Override
 	public LogicResponse<Insurance> validate(Insurance i, boolean validatePK) {
-		boolean descriptionPasses = (i.getDescription()) instanceof String 
-				&& (i.getDescription()).length() >= 0 
-				&& (i.getDescription()).length() <= 200;
-		boolean categoryObjectPasses = (i.getCategory()) instanceof InsuranceCategory
-				&& (i.getCategory()).getId() >= 0;
-		boolean categoryExists = false;
-		try {
-			categoryExists = new InsuranceCategoryData().exists(i.getCategory().getId());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		boolean hiringCostPasses = (i.getHiringCost()) >= 0;
-		boolean insuredCostPasses = (i.getInsuredCost()) >= 0;
-		boolean finalResult = (descriptionPasses && categoryObjectPasses && categoryExists && hiringCostPasses && insuredCostPasses);
-		String finalMessage = 
-				(!descriptionPasses ? Text.BadDescription :
-						!categoryObjectPasses ? Text.BadCategory :
-							!categoryExists ? Text.CategoryNotFound :
-								!hiringCostPasses ? Text.BadHiringCost :
-									!insuredCostPasses ? Text.BadInsuredCost : "");
-		return new LogicResponse<Insurance>(finalResult, finalMessage);
+		SchemaValidationResult svr = Insurance._schema.validate(i.toDictionary());
+		return new LogicResponse<Insurance>(svr.status, svr.message);
 		
 	}
 

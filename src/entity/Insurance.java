@@ -1,5 +1,6 @@
 package entity;
 
+import max.Dictionary;
 import max.ReferenceInfo;
 import max.Schema;
 import max.SchemaProperty;
@@ -14,6 +15,15 @@ public class Insurance {
 	public String toJSON() {
 		return "{ \"id\": " + id + ", \"description\": \"" + description + "\", \"category\": " + category.toJSON() + 
 				", \"hiringCost\": " + hiringCost + ", \"insuredCost\": " + insuredCost + " }";
+	}
+	public Dictionary toDictionary() {
+		return Dictionary.fromArray(
+			"id", id,
+			"descripcion", description,
+			"idTipo", category.getId(),
+			"costoContratacion", hiringCost,
+			"costoAsegurado", insuredCost
+		);
 	}
 	private int id; // Primary Key, not null, autoincrements
 	private String description; // varchar(200)
@@ -31,6 +41,7 @@ public class Insurance {
 				required = true;
 				type = String.class;
 				maxlength = 200;
+				minlength = 1;
 			}},
 			new SchemaProperty("idTipo") {{
 				required = true;
