@@ -7,7 +7,7 @@ import java.util.List;
 
 import data.InsuranceCategoryData;
 import entity.InsuranceCategory;
-import max.*;
+import max.data.*;
 
 public class InsuranceCategoryLogic implements IRecordLogic<InsuranceCategory, Integer> {
 

@@ -1,6 +1,5 @@
 <%@ page import="java.sql.DriverManager" %>
-<%@ page import="max.*" %>
-<%@ page import="max.LogicResponse" %>
+<%@ page import="max.data.*" %>
 <%@ page import="data.*" %>
 <%@ page import="entity.*" %>
 <%@ page import="logic.*" %>

@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 import entity.*;
 import logic.InsuranceCategoryLogic;
-import max.*;
+import max.net.*;
+import max.data.*;
 
 public class InsuranceCategoryData implements IRecord<InsuranceCategory, Integer> {
 	

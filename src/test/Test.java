@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import data.*;
 import entity.*;
 import logic.*;
-import max.*;
+
+import max.data.*;
+import max.tools.*;
+
 
 public class Test {
 

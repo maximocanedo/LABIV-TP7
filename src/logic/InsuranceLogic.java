@@ -1,14 +1,13 @@
 package logic;
 
-import max.*;
-
+import max.data.*;
+import max.schema.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.InsuranceCategoryData;
 import data.InsuranceData;
 import entity.*;
 

@@ -1,6 +1,6 @@
 package test;
 
-import max.*;
+import max.data.*;
 import entity.*;
 import logic.*;
 import data.*;

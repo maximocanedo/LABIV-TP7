@@ -1,6 +1,5 @@
 package servlets;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -14,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Insurance;
 import entity.InsuranceCategory;
 import logic.InsuranceLogic;
-import max.LogicResponse;
+
+import max.data.*;
 
 /**
  * Servlet implementation class AgregarServlet
@@ -31,7 +31,7 @@ public class AgregarServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    protected String LogicResponseToJSON(LogicResponse<Insurance> obj) {
+    protected String LogicResponseToJSON(max.data.LogicResponse<Insurance> obj) {
     	String fn = "{ ";
     	fn += "\"status\":  " + (obj.status ? "true" : "false") + ", ";
     	fn += "\"message\": \"" + (obj.message) + "\", ";

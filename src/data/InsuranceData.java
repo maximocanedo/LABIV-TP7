@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 import entity.*;
 import logic.InsuranceLogic;
-import max.*;
+import max.net.*;
+import max.data.*;
 
 /**
  * Esta clase maneja la capa de acceso a datos para la entidad Insurance.

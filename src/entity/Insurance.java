@@ -1,9 +1,10 @@
 package entity;
 
-import max.Dictionary;
-import max.ReferenceInfo;
-import max.Schema;
-import max.SchemaProperty;
+
+
+import java.sql.Types;
+import max.data.*;
+import max.schema.*;
 
 @SuppressWarnings("serial")
 public class Insurance {
@@ -35,27 +36,27 @@ public class Insurance {
 		setProperties(
 			new SchemaProperty("id") {{
 				required = false;
-				type = Integer.class;
+				type = Types.INTEGER;
 			}},
 			new SchemaProperty("descripcion") {{
 				required = true;
-				type = String.class;
+				type = Types.VARCHAR;
 				maxlength = 200;
 				minlength = 1;
 			}},
 			new SchemaProperty("idTipo") {{
 				required = true;
-				type = Integer.class;
+				type = Types.INTEGER;
 				ref = InsuranceCategory._schema.ref("idTipo");
 			}},
 			new SchemaProperty("costoContratacion") {{
 				required = true;
-				type = Double.class;
+				type = Types.DOUBLE;
 				min = 0;
 			}},
 			new SchemaProperty("costoAsegurado") {{
 				required = true;
-				type = Double.class;
+				type = Types.DOUBLE;
 				min = 0;
 			}}
 		);

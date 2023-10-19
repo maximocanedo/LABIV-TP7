@@ -1,6 +1,8 @@
 package entity;
 
-import max.*;
+import java.sql.Types;
+
+import max.schema.*;
 
 @SuppressWarnings("serial")
 public class InsuranceCategory {
@@ -8,11 +10,11 @@ public class InsuranceCategory {
 		setProperties(
 			new SchemaProperty("idTipo") {{
 				required = false;
-				type = Integer.class;
+				type = Types.INTEGER;
 			}},
 			new SchemaProperty("descripcion") {{
 				required = true;
-				type = String.class;
+				type = Types.VARCHAR;
 			}});
 	}};
 	@Override
