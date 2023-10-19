@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="max.data.*" %>
-<%@ page import="data.*" %>
-<%@ page import="entity.*" %>
-<%@ page import="logic.*" %>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>LABIV-TP7 · Listar seguros</title>
+        <title>LABIV-TP7 Â· Listar seguros</title>
         <!-- Agregar metadatos PENDIENTE -->
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/res/material/material-components-web.css" />
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/res/index.css" />
@@ -18,10 +14,6 @@
         <script src="${pageContext.request.contextPath}/index.js"></script>
     </head>
     
-    <%! InsuranceCategoryData ICD = new InsuranceCategoryData(); %>
-	<%! InsuranceData ID = new InsuranceData(); %>
-	<%! InsuranceLogic IL = new InsuranceLogic(); %>
-    <%! InsuranceCategoryLogic ICL = new InsuranceCategoryLogic(); %>
     <body>
     <main class="def-main add-s">
         <br><br><br>
@@ -33,7 +25,7 @@
                 <div class="mdc-select__anchor" role="button" aria-haspopup="listbox"
                     aria-expanded="false" aria-labelledby="demo-label demo-selected-text">
                     <span class="mdc-select__ripple"></span>
-                    <span id="demo-label" class="mdc-floating-label">Categoría</span>
+                    <span id="demo-label" class="mdc-floating-label">CategorÃ­a</span>
                     <span class="mdc-select__selected-text-container">
                         <span id="demo-selected-text" class="mdc-select__selected-text"></span>
                     </span>
@@ -55,7 +47,7 @@
                     <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="-1" role="option">
                             <span class="mdc-list-item__ripple"></span>
                             <span class="mdc-list-item__text">
-                                Todas las categorías
+                                Todas las categorÃ­as
                             </span>
                         </li>
                     
@@ -84,10 +76,10 @@
                         <tr class="mdc-data-table__header-row">
                             <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
                                 role="columnheader" scope="col">ID</th>
-                            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Descripción</th>
-                            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Categoría</th>
+                            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">DescripciÃ³n</th>
+                            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">CategorÃ­a</th>
                             <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
-                                role="columnheader" scope="col">Costo de contratación</th>
+                                role="columnheader" scope="col">Costo de contrataciÃ³n</th>
                             <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
                                 role="columnheader" scope="col">Costo asegurado</th>
                         </tr>
