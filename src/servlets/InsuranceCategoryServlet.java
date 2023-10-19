@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class servletSeguros
+ * Servlet implementation class InsuranceCategoryServlet
  */
-@WebServlet("/servletSeguros")
-public class servletSeguros extends HttpServlet {
+@WebServlet("/InsuranceCategoryServlet")
+public class InsuranceCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public servletSeguros() {
+    public InsuranceCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,5 +37,6 @@ public class servletSeguros extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }

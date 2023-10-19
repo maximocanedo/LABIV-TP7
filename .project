@@ -3,6 +3,7 @@
 	<name>TP7_GRUPO_3</name>
 	<comment></comment>
 	<projects>
+		<project>Connector</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

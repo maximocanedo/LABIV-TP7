@@ -1,0 +1,39 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="res/material/material-components-web.css" />
+  
+</head>
+
+<body>
+    <div class="inline-text-field-container">
+        <label class="mdc-text-field mdc-text-field--filled mdc-text-field--invalid mdc-ripple-upgraded"
+            style="--mdc-ripple-fg-size: 127px; --mdc-ripple-fg-scale: 1.8147381978510746; --mdc-ripple-fg-translate-start: 88.74609375px, -25.78515625px; --mdc-ripple-fg-translate-end: 43.12109375px, -35.501953125px;">
+            <div class="mdc-text-field__ripple"></div>
+            <input class="mdc-text-field__input" autocorrect="off" autocomplete="off" spellcheck="false"
+                id="demo-mdc-text-field" aria-labelledby="demo-mdc-text-field-label" maxlength="20" required=""
+                pattern="[a-z]{256,}">
+            <div class="mdc-line-ripple" style="transform-origin: 135.875px center;"></div>
+            <span id="demo-mdc-text-field-label" class="mdc-floating-label mdc-floating-label--required">Label</span>
+        </label>
+        <div class="mdc-text-field-helper-line">
+            <div class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg"
+                role="alert">Error message</div>
+            <div class="mdc-text-field-character-counter">0 / 20</div>
+        </div>
+    </div>
+    <br><br><br>
+    <label class="mdc-text-field mdc-text-field--filled">
+        <span class="mdc-text-field__ripple"></span>
+        <span class="mdc-floating-label" id="my-label-id">Hint text</span>
+        <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+        <span class="mdc-line-ripple"></span>
+      </label>
+      <script type="module" src="res/material/material-components-web.js"></script>
+      <script type="module" src="res/index.js"></script>
+</body>
+
+</html>
