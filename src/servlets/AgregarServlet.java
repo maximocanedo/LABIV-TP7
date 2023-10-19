@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,9 @@ import entity.InsuranceCategory;
 import logic.InsuranceLogic;
 
 import max.data.*;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
+import max.schema.SchemaValidationResult;
 
 /**
  * Servlet implementation class AgregarServlet
@@ -48,50 +52,58 @@ public class AgregarServlet extends HttpServlet {
         out.print(json);
         out.flush(); 
     }
-    
     protected void addInsurance(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    	String description = "";
-    	if(req.getParameter("description") == null) {
-    		die(res, "'description' is null. ");
-    		return;
-    	} else description = (String) req.getParameter("description");
-
-    	if(req.getParameter("category") == null) {
-    		die(res, "'category' is null. ");
-    		return;
-    	} else {
-    		try {
-    			int cat = Integer.parseInt((String) req.getParameter("category"));
-    		} catch(NumberFormatException e) {
-    			die(res, "'category' is not a number. ");
-    			return;
-    		}
-    	}
-    	
-    	
-    	if(req.getParameter("hiringCost") == null) {
-    		die(res, "'hiringCost' is null. ");
-    		return;
-    	} else {
-    		try {
-    			double hc = Double.parseDouble((String) req.getParameter("hiringCost"));
-    		} catch(NumberFormatException e) {
-    			die(res, "'hiringCost' is not a double. ");
-    			return;
-    		}
-    	}
-    	if(req.getParameter("insuredCost") == null) {
-    		die(res, "'insuredCost' is null. ");
-    		return;
-    	} else {
-    		try {
-    			double hc = Double.parseDouble((String) req.getParameter("insuredCost"));
-    		} catch(NumberFormatException e) {
-    			die(res, "'insuredCost' is not a double. ");
-    			return;
-    		}
-    	}
+    	Schema parameters = new Schema("notb", "nobd");
+    	parameters.setProperties(
+    		new SchemaProperty("description") {{
+    			required = true;
+    			type = Types.VARCHAR;
+    			maxlength = 200;
+    			minlength = 1;
+    		}},
+    		new SchemaProperty("category") {{
+    			required = true;
+    			type = Types.INTEGER;
+    			min = 0;
+    			ref = InsuranceCategory._schema.ref("idTipo");
+    		}},
+    		new SchemaProperty("hiringCost") {{
+    			required = true;
+    			type = Types.DOUBLE;
+    			min = 0;
+    		}},
+    		new SchemaProperty("insuredCost") {{
+    			required = true;
+    			type = Types.DOUBLE;
+    			min = 0;
+    		}}
+    	);
+    	Object _description = req.getParameter("description");
+    	Object _category = req.getParameter("category"), _hc = req.getParameter("hiringCost"), _ic = req.getParameter("insuredCost");
     	try {
+	    	_category = req.getParameter("category") == null ? null : Integer.parseInt(req.getParameter("category"));
+	    	_hc = req.getParameter("hiringCost") == null ? null : Double.parseDouble(req.getParameter("hiringCost"));
+	    	_ic = req.getParameter("insuredCost") == null ? null : Double.parseDouble(req.getParameter("insuredCost"));    		
+    	} catch(NumberFormatException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	Dictionary values = Dictionary.fromArray( 
+    		"description", _description,
+    		"category", _category,
+    		"hiringCost", _hc,
+    		"insuredCost", _ic
+    	);
+    	
+    	SchemaValidationResult svr = parameters.validate(values);
+    	if(!svr.status) {
+    		die(res, svr.message);
+    		return;
+    	}
+    	
+    	
+    	try {
+    		String description = (String) req.getParameter("description");
     		int categoryId = Integer.parseInt((String) req.getParameter("category"));
     		double hiringCost = Double.parseDouble((String) req.getParameter("hiringCost"))
     			 , insuredCost = Double.parseDouble((String) req.getParameter("insuredCost"));
@@ -115,6 +127,8 @@ public class AgregarServlet extends HttpServlet {
     	}
     }
 
+    
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
