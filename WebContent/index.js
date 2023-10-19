@@ -43,7 +43,7 @@ class Header {
 window.onload = () => {
 	let header = new Header({
 		title: "Trabajo Práctico N.º 7",
-		group: "Resolución de Máximo Canedo",
+		group: "Grupo N.º 3",
 		links: [["Inicio", "/TP7_GRUPO_3/Inicio.jsp"], ["Agregar seguro", "/TP7_GRUPO_3/AgregarSeguro.jsp"], ["Listar seguros", "/TP7_GRUPO_3/ListarSeguros.jsp"]],
 		otherLinks: [
 			["Repositorio", "https://github.com/maximocanedo/LABIV-TP7"],
