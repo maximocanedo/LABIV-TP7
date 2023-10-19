@@ -17,21 +17,17 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/res/index.css" />
     </head>
     
-    <%! InsuranceCategoryData ICD = new InsuranceCategoryData(); %>
-	<%! InsuranceData ID = new InsuranceData(); %>
-	<%! InsuranceLogic IL = new InsuranceLogic(); %>
-    <%! InsuranceCategoryLogic ICL = new InsuranceCategoryLogic(); %>
 <body>
     <main class="def-main add-s">
         <br><br><br>
         <span class="mdc-typography--headline4">Agregar un seguro</span>
-        <form action="#e" name="addForm">
+        <form action="#e" id="j" name="addForm">
             <br><br>
             <div class="inline-container">
                 <label class="mdc-text-field mdc-text-field--filled">
                     <span class="mdc-text-field__ripple"></span>
                     <span class="mdc-floating-label" id="my-label-id">ID</span>
-                    <input class="mdc-text-field__input" name="id" type="number" value="<%=ID.getNextId() %>" readonly
+                    <input class="mdc-text-field__input" name="id" type="number" value="" id="nid" readonly
                         aria-labelledby="my-label-id">
                     <span class="mdc-line-ripple"></span>
                 </label>
@@ -76,20 +72,8 @@
                     </div>
 
                     <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
-                        <ul class="mdc-list" role="listbox" aria-label="Food picker listbox">
-							<%
-								LogicResponse<InsuranceCategory> res = ICL.getAll();
-								if(res.listReturned != null) {
-									for(InsuranceCategory categ : res.listReturned) {%>
-									<li class="mdc-list-item" aria-selected="false" data-value="<%=categ.getId() %>" role="option">
-		                                <span class="mdc-list-item__ripple"></span>
-		                                <span class="mdc-list-item__text">
-		                                    <%=categ.getDescription() %>
-		                                </span>
-		                            </li>
-								  <%}
-								}
-							%>
+                        <ul id="select-category" class="mdc-list" role="listbox" aria-label="Food picker listbox">
+							
                         </ul>
                     </div>
 

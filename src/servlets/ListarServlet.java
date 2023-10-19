@@ -49,7 +49,6 @@ public class ListarServlet extends HttpServlet {
 		for(int i = 0; i < siz; i++) {
 			Insurance a = lri.listReturned.get(i);
 			arrJson += a.toJSON();
-			System.out.println(a.toJSON());
 			if(i != siz - 1) {
 				arrJson += ", ";
 			}

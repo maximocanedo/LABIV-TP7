@@ -51,26 +51,14 @@
                 </div>
 
                 <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
-                    <ul class="mdc-list" role="listbox" aria-label="Food picker listbox">
+                    <ul id="select-category--filter" class="mdc-list" role="listbox" aria-label="Food picker listbox">
                     <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="-1" role="option">
                             <span class="mdc-list-item__ripple"></span>
                             <span class="mdc-list-item__text">
                                 Todas las categorías
                             </span>
                         </li>
-                    <%
-								LogicResponse<InsuranceCategory> res = ICL.getAll();
-								if(res.listReturned != null) {
-									for(InsuranceCategory categ : res.listReturned) {%>
-									<li class="mdc-list-item" aria-selected="false" data-value="<%=categ.getId() %>" role="option">
-		                                <span class="mdc-list-item__ripple"></span>
-		                                <span class="mdc-list-item__text">
-		                                    <%=categ.getDescription() %>
-		                                </span>
-		                            </li>
-								  <%}
-								}
-							%>
+                    
                         
                         
                     </ul>

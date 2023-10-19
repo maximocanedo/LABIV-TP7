@@ -9,6 +9,97 @@ const formatearDinero = (cantidad) => {
 
 	return formato.format(cantidad);
 };
+(async () => {
+	const p = document.querySelector("#nid");
+	if(p == null) return;
+	let data = await fetch(`./NextIdServlet`, {
+		method: "GET",
+	})
+		.then((raw) => raw.json())
+		.then((json) => {
+			// console.log(json.data);
+			p.value = json.data;
+			p.focus();
+			p.blur();
+			return json.data;
+		});
+})();
+(async () => {
+	const k = document.querySelector("#select-category--filter");
+	if (k == null) return;
+	k.innerHTML = "";
+	let data = await fetch(`./ListarCategorias`, {
+		method: "GET",
+	})
+		.then((raw) => raw.json())
+		.then((json) => {
+			console.log(json.data);
+			let da = [{id: -1, description: "Todas las categorías"}, ...json.data];
+			return da;
+		});
+	let generateEl = (id, description) => {
+		const li = document.createElement("li");
+		li.classList.add("mdc-list-item");
+		li.setAttribute("data-value", id);
+		li.setAttribute("role", "option");
+		li.setAttribute("aria-selected", "false");
+
+		const _ripple = document.createElement("span");
+		_ripple.classList.add("mdc-list-item__ripple");
+
+		const txt = document.createElement("span");
+		txt.classList.add("mdc-list-item__text");
+		txt.innerText = description;
+
+		li.append(_ripple, txt);
+		return li;
+	};
+	var md = new mdc.select.MDCSelect(document.querySelector(".mdc-select"));
+	for (let i = 0; i < data.length; i++) {
+		let element = generateEl(data[i].id, data[i].description);
+		k.append(element);
+	}
+	md.layout();
+	md.layoutOptions();
+})();
+(async () => {
+	const k = document.querySelector("#select-category");
+	if (k == null) return;
+	k.innerHTML = "";
+	let data = await fetch(`./ListarCategorias`, {
+		method: "GET",
+	})
+		.then((raw) => raw.json())
+		.then((json) => {
+			console.log(json.data);
+			return json.data;
+		});
+	let generateEl = (id, description) => {
+		const li = document.createElement("li");
+		li.classList.add("mdc-list-item");
+		li.setAttribute("data-value", id);
+		li.setAttribute("role", "option");
+		li.setAttribute("aria-selected", "false");
+
+		const _ripple = document.createElement("span");
+		_ripple.classList.add("mdc-list-item__ripple");
+
+		const txt = document.createElement("span");
+		txt.classList.add("mdc-list-item__text");
+		txt.innerText = description;
+
+		li.append(_ripple, txt);
+		return li;
+	};
+	var md = new mdc.select.MDCSelect(document.querySelector(".mdc-select"));
+	for (let i = 0; i < data.length; i++) {
+		let element = generateEl(data[i].id, data[i].description);
+		k.append(element);
+	}
+	md.layout();
+	md.layoutOptions();
+})();
+
 const agregarEvent = async () => {
 	let d = {
 		description: document.addForm.description.value,
@@ -127,16 +218,29 @@ const agregarEvent = async () => {
 		md.required = true;
 		md.useDefaultValidation = true;
 
-		const form = element.closest("form");
-		if (form != null) {
-			form.addEventListener("submit", function (event) {
-				const selectedText = element.querySelector(".real-value");
-				if (!selectedText.value.trim()) {
-					event.preventDefault(); // Evita el envío del formulario si no hay elemento seleccionado.
-				}
-			});
-		}
+		
 	});
+	const form = document.querySelector("form#j");
+	
+	const valForm = (e) => {
+		if(!form.checkValidity()) {
+			form.reportValidity();
+			e.preventDefault();
+			return false;
+		}
+		const selectedText = document.querySelector(".real-value");
+		if (selectedText.value.length == 0) {
+			e.preventDefault(); // Evita el envío del formulario si no hay elemento seleccionado.
+			showSnackbar("Elija una categoría válida. ");
+			return false;
+		}
+		return form.checkValidity() && selectedText.value.length > 0;
+		};
+		if(form != null) form.addEventListener("submit", function (event) {
+			valForm(event);
+			
+		});
+	
 	document.querySelectorAll(".mdc-select.listar").forEach((element) => {
 		var md = new mdc.select.MDCSelect(element);
 		md.required = false;
@@ -145,7 +249,7 @@ const agregarEvent = async () => {
 	if(document.querySelector("#btnAgregar") != null) {
 		document.querySelector("#btnAgregar").addEventListener("click", e => {
 			e.preventDefault();
-			if(document.addForm.checkValidity()) agregarEvent();
+			if(valForm(e)) agregarEvent();
 		});
 	}
 
