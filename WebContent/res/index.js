@@ -9,7 +9,7 @@ const formatearDinero = (cantidad) => {
 
 	return formato.format(cantidad);
 };
-(async () => {
+const actualizarID = (async () => {
 	const p = document.querySelector("#nid");
 	if(p == null) return;
 	let data = await fetch(`./NextIdServlet`, {
@@ -23,7 +23,7 @@ const formatearDinero = (cantidad) => {
 			p.blur();
 			return json.data;
 		});
-})();
+});
 (async () => {
 	const k = document.querySelector("#select-category--filter");
 	if (k == null) return;
@@ -62,6 +62,8 @@ const formatearDinero = (cantidad) => {
 	md.layout();
 	md.layoutOptions();
 })();
+
+actualizarID();
 (async () => {
 	const k = document.querySelector("#select-category");
 	if (k == null) return;
@@ -123,6 +125,21 @@ const agregarEvent = async () => {
 		.then((raw) => raw.json())
 		.then((json) => {
 			showSnackbar(json.message);
+			(async () => {
+				const p = document.querySelector("#nid");
+				if(p == null) return;
+				let data = await fetch(`./NextIdServlet`, {
+					method: "GET",
+				})
+					.then((raw) => raw.json())
+					.then((json) => {
+						// console.log(json.data);
+						p.value = json.data;
+						p.focus();
+						p.blur();
+						return json.data;
+					});
+			})();
 		});
 };
 (() => {
@@ -234,10 +251,12 @@ const agregarEvent = async () => {
 			showSnackbar("Elija una categoría válida. ");
 			return false;
 		}
+		actualizarID();
 		return form.checkValidity() && selectedText.value.length > 0;
 		};
-		if(form != null) form.addEventListener("submit", function (event) {
+		if(form != null) form.addEventListener("submit", async function (event) {
 			valForm(event);
+			await actualizarID();
 			
 		});
 	
@@ -247,9 +266,10 @@ const agregarEvent = async () => {
 	});
 	
 	if(document.querySelector("#btnAgregar") != null) {
-		document.querySelector("#btnAgregar").addEventListener("click", e => {
+		document.querySelector("#btnAgregar").addEventListener("click", async (e) => {
 			e.preventDefault();
 			if(valForm(e)) agregarEvent();
+			await actualizarID();
 		});
 	}
 
